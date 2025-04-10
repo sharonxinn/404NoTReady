@@ -29,7 +29,7 @@ const Chatbot = () => {
           body: JSON.stringify({
             model: "gpt-3.5-turbo",
             messages: [
-              { role: "system", content: "You are a medical AI assistant." },
+              { role: "system", content: "You are a business AI assistant." },
               { role: "user", content: userInput },
             ],
             max_tokens: 150,
@@ -59,24 +59,16 @@ const Chatbot = () => {
     setMessages([...newMessages, { text: response, sender: "bot" }]);
   };
 
-  const handleEmergencyCall = (message) => {
-    if (message.includes("Call 999 now")) {
-      Linking.openURL("tel:999");
-    }
-  };
 
   return (
     <View style={styles.container}>
       <Image source={require("../assets/robot.png")} style={styles.logo} />
-      <Text style={styles.title}>AI Health Assistant</Text>
+      <Text style={styles.title}>MEX Assistant</Text>
       <FlatList
         data={messages}
         keyExtractor={(_, index) => index.toString()}
         renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() => handleEmergencyCall(item.text)}
-            activeOpacity={item.text.includes("Call 999 now") ? 0.6 : 1}
-          >
+          <TouchableOpacity>
             <View
               style={[
                 styles.messageBubble,
@@ -91,7 +83,7 @@ const Chatbot = () => {
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
-          placeholder="Describe your symptoms..."
+          placeholder="Describe your question..."
           value={input}
           onChangeText={setInput}
         />

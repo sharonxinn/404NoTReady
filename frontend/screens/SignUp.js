@@ -5,19 +5,13 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
-  Modal,
-  FlatList,
   StyleSheet,
-  Image
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
-
-const genders = ["Male", "Female", "Non-Binary"];
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SignUp = () => {
-  const API_KEY = process.env.EXPO_PUBLIC_API_URL;
-
   const navigation = useNavigation();
   const { t } = useTranslation();
 
@@ -25,9 +19,7 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [gender, setGender] = useState("");
-  const [age, setAge] = useState("");
-  const [modalVisible, setModalVisible] = useState(false);
+  const [phone, setPhone] = useState("");
   const [errors, setErrors] = useState({});
 
   const validateFields = () => {
@@ -38,52 +30,42 @@ const SignUp = () => {
     if (!confirmPassword) newErrors.confirmPassword = t("required");
     if (password && confirmPassword && password !== confirmPassword)
       newErrors.confirmPassword = t("password_mismatch");
-    if (!gender) newErrors.gender = t("required");
-    if (!age || isNaN(age) || age <= 0) newErrors.age = t("invalid_age");
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSignUp = async () => {
+    // Validate user input
     if (!validateFields()) return;
 
-    const userData = {
-      username,
-      email,
-      password,
-      gender,
-      age: parseInt(age), // Convert age to number
-    };
-
     try {
-      const response = await fetch(`${API_KEY}/api/auth/register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      });
+      const newUser = {
+        username,
+        email,
+        password,
+        phone,
+      };
 
-      const data = await response.json();
-      if (response.ok) {
-        Alert.alert("success", t("registration_successful"));
-        navigation.replace("Login"); // Navigate to Login on success
-      } else {
-        Alert.alert(
-          t("registration_failed"),
-          data.message || t("something_wrong")
-        );
-      }
+      // Save user data locally using AsyncStorage
+      await AsyncStorage.setItem("user", JSON.stringify(newUser));
+
+      // Show success message and navigate to login page
+      Alert.alert("Success", "Account created successfully!", [
+        {
+          text: "OK",
+          onPress: () => {
+            navigation.navigate("Login"); // ✅ Navigate to Login page
+          },
+        },
+      ]);
     } catch (error) {
-      console.error("Error:", error);
-      Alert.alert("error", t("server_error"));
+      Alert.alert("Error", "Signup failed. Please try again.");
     }
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
-        <Image source={require("../assets/NewGen.png")} style={styles.logo} />
         <Text style={styles.title}>{t("sign_up")}</Text>
       </View>
       <TextInput
@@ -93,9 +75,7 @@ const SignUp = () => {
         value={username}
         onChangeText={setUsername}
       />
-      {errors.username && (
-        <Text style={styles.errorText}>{errors.username}</Text>
-      )}
+      {errors.username && <Text style={styles.errorText}>{errors.username}</Text>}
 
       <TextInput
         style={styles.input}
@@ -115,9 +95,7 @@ const SignUp = () => {
         onChangeText={setPassword}
         secureTextEntry
       />
-      {errors.password && (
-        <Text style={styles.errorText}>{errors.password}</Text>
-      )}
+      {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
 
       <TextInput
         style={styles.input}
@@ -127,56 +105,16 @@ const SignUp = () => {
         onChangeText={setConfirmPassword}
         secureTextEntry
       />
-      {errors.confirmPassword && (
-        <Text style={styles.errorText}>{errors.confirmPassword}</Text>
-      )}
-
-      {/* Gender Selection */}
-      <TouchableOpacity
-        style={styles.input}
-        onPress={() => setModalVisible(true)}
-      >
-        <Text style={gender ? styles.inputText : styles.placeholderText}>
-          {gender ? t(gender.toLowerCase()) : t("select_gender")}
-        </Text>
-      </TouchableOpacity>
-      {errors.gender && <Text style={styles.errorText}>{errors.gender}</Text>}
-
-      {/* Gender Selection Modal */}
-      <Modal visible={modalVisible} transparent animationType="slide">
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <FlatList
-              data={genders}
-              keyExtractor={(item) => item}
-              renderItem={({ item }) => (
-                <TouchableOpacity
-                  style={styles.genderOption}
-                  onPress={() => {
-                    setGender(item);
-                    setModalVisible(false);
-                  }}
-                >
-                  <Text style={styles.genderText}>{t(item.toLowerCase())}</Text>
-                </TouchableOpacity>
-              )}
-            />
-            <TouchableOpacity onPress={() => setModalVisible(false)}>
-              <Text style={styles.cancelText}>{t("cancel")}</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
+      {errors.confirmPassword && <Text style={styles.errorText}>{errors.confirmPassword}</Text>}
 
       <TextInput
         style={styles.input}
-        placeholder={t("age")}
+        placeholder={t("phone number")}
         placeholderTextColor="#999"
-        value={age}
-        onChangeText={setAge}
+        value={phone}
+        onChangeText={setPhone}
         keyboardType="numeric"
       />
-      {errors.age && <Text style={styles.errorText}>{errors.age}</Text>}
 
       <TouchableOpacity style={styles.button} onPress={handleSignUp}>
         <Text style={styles.buttonText}>{t("sign_up")}</Text>
@@ -209,11 +147,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 30,
   },
-  logo: {
-    width: 40,
-    height: 40,
-    marginRight: 10,
-  },
   title: {
     fontSize: 28,
     fontWeight: "bold",
@@ -230,14 +163,6 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     borderWidth: 1,
     borderColor: "#CCC",
-  },
-  inputText: {
-    color: "#333",
-    fontSize: 16,
-  },
-  placeholderText: {
-    color: "#999",
-    fontSize: 16,
   },
   button: {
     width: "100%",
@@ -261,36 +186,6 @@ const styles = StyleSheet.create({
   loginLink: {
     color: "#002147",
     fontWeight: "bold",
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.5)",
-  },
-  modalContent: {
-    backgroundColor: "white",
-    padding: 20,
-    borderRadius: 10,
-    width: "80%",
-    maxWidth: 450,
-    alignItems: "center",
-  },
-  genderOption: {
-    padding: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-    width: "100%",
-    alignItems: "center",
-  },
-  genderText: {
-    fontSize: 18,
-    color: "#333",
-  },
-  cancelText: {
-    color: "red",
-    fontSize: 16,
-    marginTop: 10,
   },
   errorText: {
     color: "#ff0000",

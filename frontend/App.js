@@ -1,121 +1,76 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
-import { TouchableOpacity, Text } from "react-native";
-import axios from "axios";
+import { TouchableOpacity, Text, View, StyleSheet, SafeAreaView } from "react-native";
 import { useTranslation } from "react-i18next";
-import { View, StyleSheet, SafeAreaView } from "react-native";
-import { AuthProvider } from "./context/AuthContext";
-import SignUp from "./screens/SignUp";
-import Login from "./screens/Login";
 import Dashboard from "./screens/Dashboard";
-import Diet from "./screens/Diet";
-import Game from "./screens/Game";
-import Health from "./screens/Health";
-import Monitor from "./screens/Monitor";
-import Report from "./services/Report";
+import Inventory from "./screens/Inventory";
 import Chatbot from "./screens/Chatbot";
-import "./src/i18n";
+import Insights from "./services/Insights";
+import Account from "./screens/Account";
 import LanguageSwitcher from "./src/components/LanguageSwitcher";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
-const AuthContext = createContext();
-
-// Logout Function
-const LogoutButton = ({ navigation }) => {
-  const { t } = useTranslation();
-  const { setUser } = useContext(AuthContext);
-  const API_KEY = process.env.EXPO_PUBLIC_API_URL;
-
-  const handleLogout = async () => {
-    try {
-      await axios.post(`${API_KEY}/api/auth/logout`);
-      setUser(null); // Clear authentication state
-      navigation.replace("Login"); // Redirect to login page
-    } catch (error) {
-      alert(t("logout_failed"));
-    }
-  };
-
-  return (
-    <TouchableOpacity onPress={handleLogout} style={{ marginRight: 15 }}>
-      <Text style={{ color: "#002147", fontSize: 16, fontWeight: "bold" }}>
-        {t("logout")}
-      </Text>
-    </TouchableOpacity>
-  );
-};
 
 // Bottom Tab Navigator
-function MainTabs({ navigation }) {
+function MainTabs() {
   const { t } = useTranslation();
 
   return (
-    <Tab.Navigator
-      screenOptions={{
-        headerRight: () => <LogoutButton navigation={navigation} />,
-      }}
-    >
+    <Tab.Navigator>
       <Tab.Screen
         name="Dashboard"
         component={Dashboard}
         options={{
-          title: t("dashboard"),
+          title: t("Dashboard"),
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home" color={color} size={size} />
+            <Ionicons name="navigate" color={color} size={size} />
           ),
         }}
       />
       <Tab.Screen
-        name="Diet"
-        component={Diet}
+        name="Insights"
+        component={Insights}
         options={{
-          title: t("diet"),
+          title: t("Insights"),
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="fast-food" color={color} size={size} />
+            <Ionicons name="analytics" color={color} size={size} />
           ),
         }}
       />
+
       <Tab.Screen
-        name="Game"
-        component={Game}
+        name="Chatbot"
+        component={Chatbot}
         options={{
-          title: t("game"),
+          title: t("MEX"),
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="game-controller" color={color} size={size} />
+            <Ionicons name="chatbubbles" color={color} size={size} />
           ),
         }}
       />
+
       <Tab.Screen
-        name="Health"
-        component={Health}
+        name="Inventory"
+        component={Inventory}
         options={{
-          title: t("health"),
+          title: t("Inventory"),
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="heart" color={color} size={size} />
+            <Ionicons name="archive" color={color} size={size} />
           ),
         }}
       />
+
       <Tab.Screen
-        name="Monitor"
-        component={Monitor}
+        name="Account"
+        component={Account}
         options={{
-          title: t("monitor"),
+          title: t("Account"),
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="pulse" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Report"
-        component={Report}
-        options={{
-          title: t("report"),
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="bar-chart" color={color} size={size} />
+            <Ionicons name="person" color={color} size={size} />
           ),
         }}
       />
@@ -127,42 +82,21 @@ function MainTabs({ navigation }) {
 export default function App() {
   const { t } = useTranslation();
 
-  const [user, setUser] = useState(null); // Manage authentication state
-
   return (
-    <AuthProvider>
-      <AuthContext.Provider value={{ user, setUser }}>
-        <SafeAreaView style={styles.container}>
-          <View style={styles.content}>
-            <NavigationContainer>
-              <Stack.Navigator initialRouteName="SignUp">
-                <Stack.Screen
-                  name="SignUp"
-                  component={SignUp}
-                  options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                  name="Login"
-                  component={Login}
-                  options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                  name="Dashboard"
-                  component={MainTabs}
-                  options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                  name="Chatbot"
-                  component={Chatbot}
-                  options={{ headerShown: true, title: t("ai_chatbot") }}
-                />
-              </Stack.Navigator>
-            </NavigationContainer>
-          </View>
-          <LanguageSwitcher />
-        </SafeAreaView>
-      </AuthContext.Provider>
-    </AuthProvider>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.content}>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Dashboard">
+            <Stack.Screen
+              name="Dashboard"
+              component={MainTabs}
+              options={{ headerShown: false }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </View>
+      <LanguageSwitcher />
+    </SafeAreaView>
   );
 }
 
