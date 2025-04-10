@@ -1,15 +1,33 @@
-# AI Healthcare App
+# GrabMEX AI App
 
-An AI-powered healthcare mobile application built using React Native and Expo. This app integrates OpenAI's API for AI-driven meal recommendations, symptom-based disease detection, and emergency services.
+GrabMEX AI is an intelligent, chat-based AI assistant designed to empower merchants with instant, accurate, and personalized business insights. Using Generative AI, Natural Language Processing (NLP), and Predictive Analytics, GrabMEX AI simplifies business management by offering real-time alerts of current market, personalized growth strategies, and an intuitive multilingual interface.
+
 
 ## 🚀 Features
 
-- **AI Meal Recommendations**: Get personalized meal plans based on dietary preferences.
-- **Symptom Checker**: Input symptoms and receive possible diagnoses.
-- **Emergency Call**: Directly call emergency services (999) when needed.
-- **Health Tracking**: Integrate Google Fit for health data monitoring.
-- **Chat Assistant**: AI-powered chatbot for health advice.
-- **Push Notifications**: Stay updated with health reminders.
+1. AI-Powered Business Dashboard  (Chart) (summary sales,orders,tips)
+
+ • Real-time sales tracking: AI automatically generates daily, weekly, and monthly reports.
+ • Predictive insights: Forecasts future demand and suggests stock replenishment.    
+ • Competitor benchmarking: Compares performance with similar merchants in the area.
+
+2. Smart Inventory & Sales Alerts (Notification)
+ • Low stock alerts: Notifies merchants before inventory runs out.
+ • Peak-hour demand notifications: Recommends best-selling times and pricing adjustments.
+ • Waste reduction tips: AI identifies slow-moving stock and suggests discount strategies.
+
+3. AI Chat Assistant (Text & Voice)   (MEX) (**)
+ • Conversational AI for insights: Merchants can ask:
+“What’s my best-selling product this month?”
+“How can I increase my sales on weekends?”
+ • Multilingual support: Speaks Bahasa Malaysia, Thai, Vietnamese, Tagalog, and English.
+ • WhatsApp & GrabMerchant App integration for seamless interaction.
+
+4. AI-Powered Promotions & Growth Strategies(Chart) (tips) (**)
+ • Auto-generates marketing suggestions based on customer demand.
+ • Personalized discounts & bundles: Recommends combo deals to boost revenue.
+ • Localized seasonal trends: Predicts festive sales opportunities.
+
 
 ## 📦 Technologies & Packages Used
 
@@ -36,14 +54,14 @@ Here are some of the key dependencies used in this project:
 ### 2️⃣ Clone the Repository
 
 ```sh
-git clone https://github.com/HiIamGaryee/NewGen-ui.git
+git clone https://github.com/sharonxinn/404NoTReady.git
 ```
 
 
 ### 3️⃣ Cd to Folder
 
 ```sh
-cd ai-healthcare-app
+cd frontend
 ```
 
 ### 4️⃣ Install Dependencies
