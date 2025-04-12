@@ -1,7 +1,3 @@
-Here’s a structured **Technology Stack Table** for your AI Merchant Assistant, integrating both the core features and MBTI personalization:  
-
----
-
 ### **📊 AI Merchant Assistant - Technology Stack**  
 
 | **Category**              | **Technology**                                                                 |
