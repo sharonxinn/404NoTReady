@@ -15,7 +15,7 @@ https://www.canva.com/design/DAGkaPkPl1E/FN0QCJ2paPwh4bQXTybAYw/edit?utm_content
 
 
 Key Features:
-1. 📊 AI-Powered Business Dashboard
+1.📊 AI-Powered Business Dashboard
 -Real-Time Analytics & Forecasting
 -Daily/weekly/monthly sales reports (charts & summaries)
 -Revenue trend tracking & performance insights
