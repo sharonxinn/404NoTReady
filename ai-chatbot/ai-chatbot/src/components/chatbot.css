@@ -1,0 +1,142 @@
+/* General container styles */
+.chat-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #ffffff;  /* White background */
+  color: #000000;  /* Black text */
+  margin: 0;
+}
+
+/* Chat card */
+.chat-card {
+  width: 100%;
+  max-width: 600px;
+  background-color: #f9f9f9;  /* Light background color */
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 800px;  /* Adjust max height */
+  overflow: hidden;
+}
+
+/* Chat header */
+.chat-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 8px 16px;
+}
+
+.history-button {
+  background: none;
+  border: none;
+  color: #007bff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.history-button:hover {
+  color: #0056b3;  /* Hover effect for history button */
+}
+
+/* Chat content */
+.chat-content {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  background-color: #ffffff;  /* White background for chat area */
+  border-bottom: 1px solid #dcdcdc;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-message {
+  padding: 10px;
+  border-radius: 15px;
+  margin: 8px 0;
+  max-width: 80%;
+}
+
+.chat-message.user {
+  background-color: #d1ecf1;  /* User message color */
+  text-align: right;
+  margin-left: auto;
+}
+
+.chat-message.ai {
+  background-color: #f8f9fa;  /* AI message color */
+  text-align: left;
+  margin-right: auto;
+}
+
+/* Uploaded image styles */
+.uploaded-image {
+  max-width: 100%;
+  max-height: 200px;
+  margin-top: 12px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Input area */
+.chat-input {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  background-color: #f1f1f1;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.mic-button, .send-button, .image-button {
+  background: none;
+  border: none;
+  color: #000000;
+  cursor: pointer;
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+.mic-button.listening {
+  color: #ff4d4d;  /* Red when listening */
+}
+
+.input-field {
+  flex: 1;
+  padding: 12px;
+  background-color: #f1f1f1;
+  color: #000000;
+  border: 1px solid #dcdcdc;
+  border-radius: 12px;
+  font-size: 16px;
+}
+
+.input-field::placeholder {
+  color: #a1a1a1;  /* Lighter placeholder text */
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #007bff;  /* Focus color */
+}
+
+.send-button {
+  color: #007bff;
+  font-size: 20px;
+}
+
+.send-button:hover {
+  color: #0056b3;  /* Hover effect for send button */
+}
+
+.image-button {
+  color: #007bff;
+  font-size: 20px;
+}
+
+.image-button:hover {
+  color: #0056b3;  /* Hover effect for image upload button */
+}
