@@ -148,7 +148,7 @@ export default function MerchantAIAssistant() {
       // Generate simple response
       setTimeout(() => {
         const aiResponse = {
-          text: "I'm your Merchant AI Assistant specialized in food products. " ,
+          text: "I'm your Munch specialized in food products. " ,
           type: "text",
           sender: "ai"
         };
@@ -212,7 +212,7 @@ export default function MerchantAIAssistant() {
     <div className="chat-container">
       <div className="chat-card">
         <div className="chat-header">
-          <h2> Merchant AI Detect</h2>
+          <h2> Munch Detect</h2>
         </div>
 
         <div className="chat-content">

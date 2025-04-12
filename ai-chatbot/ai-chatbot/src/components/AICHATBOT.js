@@ -25,21 +25,21 @@ ChartJS.register(
 // Language responses
 const languageResponses = {
   en: {
-    introduction: "Hello! My name is Mex. How can I help you with your business today?",
-    help: "I'm your Merchant AI Assistant. How can I help with your business today?\n\nTry asking me to:\n- Generate a business report\n- Show total sales today/this week/this month\n- Give price suggestions\n- Provide marketing strategy advice\n- Share customer engagement tips\n- Analyze product images for marketing suggestions",
+    introduction: "Hello! My name is Munch. How can I help you with your business today?",
+    help: "I'm your Assistant Munch. How can I help with your business today?\n\nTry asking me to:\n- Generate a business report\n- Show total sales today/this week/this month\n- Give price suggestions\n- Provide marketing strategy advice\n- Share customer engagement tips\n- Analyze product images for marketing suggestions",
     report: "Business Performance Report",
     download: "Download Report",
     error: "Sorry, I couldn't understand that. Could you please rephrase?",
   },
   ms: {
-    introduction: "Helo! Nama saya Mex. Bagaimana saya boleh membantu anda hari ini?",
+    introduction: "Helo! Nama saya Munch. Bagaimana saya boleh membantu anda hari ini?",
     help: "Saya Pembantu AI Pedagang anda. Bagaimana saya boleh membantu perniagaan anda hari ini?\n\nCuba minta saya:\n- Hasilkan laporan perniagaan\n- Tunjukkan jumlah jualan hari/minggu/bulan ini\n- Beri cadangan harga\n- Berikan nasihat strategi pemasaran\n- Kongsi tip penglibatan pelanggan\n- Analisa imej produk untuk cadangan pemasaran",
     report: "Laporan Prestasi Perniagaan",
     download: "Muat Turun Laporan",
     error: "Maaf, saya tidak faham. Boleh anda nyatakan semula?",
   },
   zh: {
-    introduction: "你好！我叫 Mex。今天有什么可以帮您的吗？",
+    introduction: "你好！我叫 Munch。今天有什么可以帮您的吗？",
     help: "我是您的商业AI助手。今天有什么可以帮您的吗？\n\n您可以让我：\n- 生成业务报告\n- 显示今天/本周/本月的总销售额\n- 提供价格建议\n- 提供营销策略建议\n- 分享客户参与技巧\n- 分析产品图片获取营销建议",
     report: "业务表现报告",
     download: "下载报告",
@@ -632,7 +632,7 @@ export default function MerchantAIAssistant() {
     <div className="chat-container">
       <div className="chat-card">
         <div className="chat-header">
-          <h2>Merchant AI Assistant</h2>
+          <h2>Munch</h2>
           <button 
             className="history-button" 
             onClick={() => setShowHistory(!showHistory)}
